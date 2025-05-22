@@ -16,6 +16,16 @@ class Order(db.Model):
 
     def __repr__(self):
         return f"<Order {self.id} - {self.status}>"
+
+    def to_dict(self):
+        """Serialize order with basic info and items."""
+        return {
+            "id": self.id,
+            "customer_id": self.customer_id,
+            "status": self.status,
+            "created_at": self.created_at.isoformat() if self.created_at else None,
+            "items": [item.to_dict() for item in self.items],
+        }
     
 class OrderItem(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -28,3 +38,10 @@ class OrderItem(db.Model):
 
     def __repr__(self):
         return f"<OrderItem {self.menu_item_id} x{self.quantity}>"
+
+    def to_dict(self):
+        """Serialize an individual item in an order."""
+        return {
+            "menu_item_id": self.menu_item_id,
+            "quantity": self.quantity,
+        }

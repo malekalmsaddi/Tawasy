@@ -19,3 +19,11 @@ class User(db.Model):
 
     def __repr__(self):
         return f"<User {self.email} ({self.role})>"
+
+    def to_dict(self):
+        """Return a dictionary representation of the user."""
+        return {
+            "id": self.id,
+            "email": self.email,
+            "role": self.role,
+        }
