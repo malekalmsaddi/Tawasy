@@ -234,7 +234,7 @@ def user_login():
 @web_bp.route("/logout")
 def user_logout():
     session.pop("user_id", None)
-    return redirect(url_for("web.login"))
+    return redirect(url_for("web.user_login"))
 
 @web_bp.route("/restaurant/<int:restaurant_id>/order", methods=["POST"])
 def place_order(restaurant_id):
