@@ -1,0 +1,45 @@
+{% extends "layout.html" %}
+{% block title %}Edit Restaurant{% endblock %}
+{% block content %}
+<h2>Edit Restaurant</h2>
+
+<form method="post">
+  <div class="mb-3">
+    <input type="email" name="email" class="form-control" value="{{ restaurant.email }}" required>
+  </div>
+  <button class="btn btn-primary">Save Changes</button>
+  <a href="{{ url_for('web.dashboard') }}" class="btn btn-secondary">Cancel</a>
+</form>
+
+<hr>
+
+<h4 class="mt-4">Menu Items</h4>
+<ul class="list-group mb-3">
+  {% for item in menus %}
+    <li class="list-group-item d-flex justify-content-between align-items-start">
+      <div>
+        <strong>{{ item.name }}</strong> - QAR {{ item.price }}<br>
+        <small>{{ item.description }}</small>
+      </div>
+      <div class="btn-group">
+        <a href="{{ url_for('web.edit_menu_item', item_id=item.id) }}" class="btn btn-sm btn-outline-primary">Edit</a>
+        <a href="{{ url_for('web.delete_menu_item', item_id=item.id) }}" class="btn btn-sm btn-outline-danger">Delete</a>
+      </div>
+    </li>
+  {% endfor %}
+</ul>
+
+<h5>Add New Menu Item</h5>
+<form method="post" action="{{ url_for('web.add_menu_item_to_edit', restaurant_id=restaurant.id) }}">
+  <div class="mb-2">
+    <input type="text" name="name" class="form-control" placeholder="Item Name" required>
+  </div>
+  <div class="mb-2">
+    <input type="number" name="price" class="form-control" placeholder="Price" required>
+  </div>
+  <div class="mb-2">
+    <textarea name="description" class="form-control" placeholder="Description (optional)"></textarea>
+  </div>
+  <button class="btn btn-success">Add Item</button>
+</form>
+{% endblock %}

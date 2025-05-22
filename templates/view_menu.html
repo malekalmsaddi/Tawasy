@@ -1,0 +1,17 @@
+{% extends "layout.html" %}
+{% block title %}{{ restaurant.name }} Menu{% endblock %}
+{% block content %}
+<h2>{{ restaurant.name }} - Menu</h2>
+<form method="post" action="{{ url_for('web.place_order', restaurant_id=restaurant.id) }}">
+  <ul class="list-group mb-3">
+    {% for item in menu_items %}
+      <li class="list-group-item">
+        <input type="checkbox" name="item_ids" value="{{ item.id }}"> 
+        <strong>{{ item.name }}</strong> - QAR {{ item.price }}<br>
+        <small>{{ item.description }}</small>
+      </li>
+    {% endfor %}
+  </ul>
+  <button class="btn btn-success">Place Order</button>
+</form>
+{% endblock %}

@@ -1,0 +1,34 @@
+{% extends "layout.html" %}
+{% block title %}{{ restaurant.email }}{% endblock %}
+
+{% block content %}
+<h2>{{ restaurant.email }}</h2>
+<p><a href="{{ url_for('web.dashboard') }}">&larr; Back to Dashboard</a></p>
+
+<h4>Menu Items</h4>
+<ul class="list-group mb-3">
+  {% for item in menus %}
+    <li class="list-group-item">
+      <strong>{{ item.name }}</strong> - QAR {{ item.price }}
+      <br><small>{{ item.description }}</small>
+    </li>
+  {% endfor %}
+</ul>
+
+<h4>Menu Items</h4>
+<ul class="list-group mb-3">
+  {% for item in menus %}
+    <li class="list-group-item d-flex justify-content-between align-items-start">
+      <div>
+        <strong>{{ item.name }}</strong> - QAR {{ item.price }}<br>
+        <small>{{ item.description }}</small>
+      </div>
+      <div class="btn-group">
+        <a href="{{ url_for('web.edit_menu_item', item_id=item.id) }}" class="btn btn-sm btn-outline-primary">Edit</a>
+        <a href="{{ url_for('web.delete_menu_item', item_id=item.id) }}" class="btn btn-sm btn-outline-danger">Delete</a>
+      </div>
+    </li>
+  {% endfor %}
+</ul>
+
+{% endblock %}

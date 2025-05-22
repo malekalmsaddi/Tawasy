@@ -1,0 +1,15 @@
+{% extends "layout.html" %}
+{% block title %}My Orders{% endblock %}
+{% block content %}
+<h2>My Orders</h2>
+<ul class="list-group">
+  {% for order in orders %}
+    <li class="list-group-item">
+      <strong>Order #{{ order.id }}</strong> - Status: 
+      <span class="badge bg-info text-dark">{{ order.status }}</span>
+      <br>
+      Items: {{ order.item_summary() }}
+    </li>
+  {% endfor %}
+</ul>
+{% endblock %}

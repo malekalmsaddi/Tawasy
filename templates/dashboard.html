@@ -1,0 +1,116 @@
+{% extends "layout.html" %}
+{% block title %}Admin Dashboard{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-3">
+  <h2>Admin Dashboard</h2>
+  <a href="{{ url_for('web.admin_logout') }}" class="btn btn-outline-secondary btn-sm">Logout</a>
+</div>
+
+<div class="row">
+  <div class="col-md-6">
+    <h4>Users</h4>
+    <ul class="list-group mb-3">
+      {% for user in users %}
+        <li class="list-group-item d-flex justify-content-between">
+          <span>{{ user.email }}</span> <span class="badge bg-primary">{{ user.role }}</span>
+        </li>
+      {% endfor %}
+    </ul>
+
+    <h4>Orders</h4>
+    <ul class="list-group mb-3">
+      {% for order in orders %}
+        <li class="list-group-item">
+          <strong>Order #{{ order.id }}</strong> |
+          Status: <span class="badge bg-warning text-dark">{{ order.status }}</span> |
+          Customer: {{ order.customer_id }}
+        </li>
+      {% endfor %}
+    </ul>
+
+    <div class="d-flex gap-2 mt-4">
+      <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addUserModal">Add User</button>
+      <button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#addDriverModal">Add Driver</button>
+    </div>
+  </div>
+
+  <div class="col-md-6">
+    <h4>Restaurants</h4>
+    <ul class="list-group mb-3">
+      {% for r in restaurants %}
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+          <a href="{{ url_for('web.restaurant_profile', restaurant_id=r.id) }}">
+            {{ r.email }} (ID: {{ r.id }})
+          </a>
+          <span>
+            <a href="{{ url_for('web.edit_restaurant', restaurant_id=r.id) }}" class="btn btn-sm btn-outline-primary">Edit</a>
+            <a href="{{ url_for('web.delete_restaurant', restaurant_id=r.id) }}" class="btn btn-sm btn-outline-danger">Delete</a>
+          </span>
+        </li>
+      {% endfor %}
+    </ul>
+
+    <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addRestaurantModal">Add Restaurant</button>
+  </div>
+</div>
+
+<!-- Restaurant Modal -->
+<div class="modal fade" id="addRestaurantModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog">
+    <form method="post" action="{{ url_for('web.add_restaurant') }}" class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Add New Restaurant</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <input type="email" name="email" class="form-control mb-2" placeholder="Email" required>
+        <input type="password" name="password" class="form-control" placeholder="Password" required>
+      </div>
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-success">Save</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- User Modal -->
+<div class="modal fade" id="addUserModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog">
+    <form method="post" action="{{ url_for('web.add_user') }}" class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Add New User</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <input type="email" name="email" class="form-control mb-2" placeholder="Email" required>
+        <input type="password" name="password" class="form-control mb-2" placeholder="Password" required>
+        <input type="hidden" name="role" value="customer">
+      </div>
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-primary">Save</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Driver Modal -->
+<div class="modal fade" id="addDriverModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog">
+    <form method="post" action="{{ url_for('web.add_driver') }}" class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Add New Driver</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <input type="email" name="email" class="form-control mb-2" placeholder="Email" required>
+        <input type="password" name="password" class="form-control mb-2" placeholder="Password" required>
+        <input type="hidden" name="role" value="driver">
+      </div>
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-warning">Save</button>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}
