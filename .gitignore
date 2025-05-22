@@ -3,14 +3,11 @@ __pycache__/
 *.py[cod]
 *.egg-info/
 
-# Virtualenv
 venv/
 .env
 
-# Flask logs & debug
 *.log
 instance/
-*.sqlite3
 
-# MacOS
+*.sqlite3
 .DS_Store
