@@ -1,0 +1,16 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+
+# Virtualenv
+venv/
+.env
+
+# Flask logs & debug
+*.log
+instance/
+*.sqlite3
+
+# MacOS
+.DS_Store
