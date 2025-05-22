@@ -63,11 +63,6 @@ pip install -r requirements.txt
 ### 4. Set Environment Variables (e.g. `.env` file)
 
 ```env
-FLASK_APP=main.py
-FLASK_ENV=development
-DATABASE_URL=postgresql://user:pass@localhost/tawasy
-JWT_SECRET_KEY=your-secret
-REDIS_URL=redis://localhost:6379/0
 ```
 
 ### 5. Initialize Database
