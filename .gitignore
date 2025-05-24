@@ -1,5 +1,7 @@
 # Python
 __pycache__/
+/routes/__pycache__/
+/models/__pycache__/
 *.py[cod]
 *.egg-info/
 
@@ -11,3 +13,4 @@ instance/
 
 *.sqlite3
 .DS_Store
+Tawasymay21.zip
