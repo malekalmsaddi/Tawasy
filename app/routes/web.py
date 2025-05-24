@@ -16,6 +16,11 @@ web_bp = Blueprint('web', __name__)
 def index():
     return redirect(url_for('web.admin_login'))
 
+@web_bp.route('/home')
+def home():
+    restaurants = User.query.filter_by(role='restaurant').all()
+    return render_template('home.html', restaurants=restaurants)
+
 @web_bp.route('/admin/login', methods=['GET', 'POST'])
 def admin_login():
     if request.method == 'POST':
@@ -235,6 +240,12 @@ def user_login():
 def user_logout():
     session.pop("user_id", None)
     return redirect(url_for("web.user_login"))
+
+@web_bp.route("/restaurant/<int:restaurant_id>")
+def view_menu(restaurant_id):
+    restaurant = User.query.filter_by(id=restaurant_id, role='restaurant').first_or_404()
+    menu_items = MenuItem.query.filter_by(restaurant_id=restaurant_id).all()
+    return render_template("view_menu.html", restaurant=restaurant, menu_items=menu_items)
 
 @web_bp.route("/restaurant/<int:restaurant_id>/order", methods=["POST"])
 def place_order(restaurant_id):

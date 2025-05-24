@@ -8,16 +8,6 @@
 <h4>Menu Items</h4>
 <ul class="list-group mb-3">
   {% for item in menus %}
-    <li class="list-group-item">
-      <strong>{{ item.name }}</strong> - QAR {{ item.price }}
-      <br><small>{{ item.description }}</small>
-    </li>
-  {% endfor %}
-</ul>
-
-<h4>Menu Items</h4>
-<ul class="list-group mb-3">
-  {% for item in menus %}
     <li class="list-group-item d-flex justify-content-between align-items-start">
       <div>
         <strong>{{ item.name }}</strong> - QAR {{ item.price }}<br>
