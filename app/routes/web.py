@@ -320,7 +320,10 @@ def user_dashboard():
         return redirect(url_for("web.user_login"))
 
     user = User.query.get(session["user_id"])
-    return render_template("user_dashboard.html", user=user)
+    restaurants = User.query.filter_by(role="restaurant").all()
+    return render_template(
+        "user_dashboard.html", user=user, restaurants=restaurants
+    )
 
 @web_bp.route("/my-orders")
 def my_orders():

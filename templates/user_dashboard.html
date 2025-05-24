@@ -3,6 +3,25 @@
 
 {% block content %}
 <h2>Hello {{ user.email }}!</h2>
-<p>This is your dashboard.</p>
-<a href="{{ url_for('web.my_orders') }}" class="btn btn-outline-primary">View My Orders</a>
-{% endblock %}
+
+<div class="mb-3">
+    <a href="{{ url_for('web.home') }}" class="btn btn-success">Browse Restaurants</a>
+    <a href="{{ url_for('web.my_orders') }}" class="btn btn-outline-primary">View My Orders</a>
+    <a href="{{ url_for('web.user_logout') }}" class="btn btn-outline-secondary">Logout</a>
+  </div>
+  
+  {% if restaurants %}
+  <h4>Available Restaurants</h4>
+  <ul class="list-group">
+    {% for r in restaurants %}
+    <li class="list-group-item d-flex justify-content-between align-items-center">
+      {{ r.email }}
+      <a href="{{ url_for('web.view_menu', restaurant_id=r.id) }}" class="btn btn-sm btn-outline-secondary">View Menu</a>
+    </li>
+    {% endfor %}
+  </ul>
+  {% else %}
+  <p>No restaurants available.</p>
+  {% endif %}
+  {% endblock %}
+  
